@@ -1,0 +1,28 @@
+Cíl: Umožnit prodej/nákup produktů vystavených uživateli
+
+Uživatelské role:
+ - Nepřihlášení uživatelé
+              - Spectator
+ - Přihlášení uživatelé:
+             - Seller / Buyer
+             - Admin
+
+Popis:
+
+- Funkce:
+             - Nabídka obsahuje název, popis, cenu, obrázek, datum přidání
+             - Nabídky se dají kategorizovat, pokud nezvolena kategorie => kategorie = Jiné
+             - Kategorie jsou pevně dané, může je upravovat jen správce
+             - Na hlavní stránce fóra je vypsaných posledních 10 nabídek a seznam kategorií,
+               každá kategorie obsahuje seznam příslušných nabídek, seznamy jsou stránkovány.
+             - Není žádný košík, uživatel nakupuje produkt přímo od jiného uživatele
+             - Aplikace neřeší transakce, uživatel potvrdí zájem => Nabídka označena
+               jako 'Sold' (doprava zboží a platba je formou dohody mezi uživateli)
+
+Funkce podle rolí:
+             - Nepřihlášení uživatelé můžou prohlížet všechny nabídky, registrovat se, případně se
+              přihlásit.
+             - Běžní přihlášení uživatelé můžou nakupovat a můžou vytvářet, mazat a upravovat
+              svoje vlastní nabídky.
+             - Správce fóra může blokovat nebo povolovat běžné přihlášené uživatele, vytvářet,
+               editovat a mazat kategorie, mazat nabídky v případě porušení pravidel komunity.
