@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .toggle-form {
+            text-align: center;
+        }
+        .form {
+            display: none;
+        }
+        .form.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="toggle-form">
+        <button id="loginBtn">Login</button>
+        <button id="registerBtn">Register</button>
+    </div>
+    <form id="loginForm" class="form active">
+        <h2>Login</h2>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+        <button type="submit">Login</button>
+    </form>
+    <form id="registerForm" class="form">
+        <h2>Register</h2>
+        <label for="newUsername">Username:</label>
+        <input type="text" id="newUsername" name="newUsername" required><br><br>
+        <label for="newPassword">Password:</label>
+        <input type="password" id="newPassword" name="newPassword" required><br><br>
+        <button type="submit">Register</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('loginBtn').addEventListener('click', function() {
+        document.getElementById('loginForm').classList.add('active');
+        document.getElementById('registerForm').classList.remove('active');
+    });
+
+    document.getElementById('registerBtn').addEventListener('click', function() {
+        document.getElementById('registerForm').classList.add('active');
+        document.getElementById('loginForm').classList.remove('active');
+    });
+</script>
+</body>
+</html>
