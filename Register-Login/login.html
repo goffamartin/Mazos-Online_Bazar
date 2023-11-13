@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mazoš.cz - Registrace</title>
+  <link rel="stylesheet" href="./style.css"/>
+  <script src="script.js"></script>
+</head>
+<body>
+<header>
+  <nav>
+    <a id="logo" href="../index.html">Mazoš.cz</a>
+  </nav>
+</header>
+<main>
+  <div id="registration_container">
+    <h2>Registrace</h2>
+    <form id="registration_form" action="registration_submit.html" method="post" onsubmit="return validateLoginForm()">
+      <label>Uživatelské jméno: <input id="username" type="text"></label>
+      <span id="usernameError" class="error"></span>
+      <label>Heslo: <input id="password" type="password"></label>
+      <span id="passwordError" class="error"></span>
+      <button id="submit_registration_button" type="submit">Přihlásit se</button>
+    </form>
+  </div>
+</main>
+<footer>
+  <p>© Copyright - Mazoš.cz | site by <b>GOFFA</b></p>
+</footer>
+</body>
+</html>
