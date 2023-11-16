@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
     <meta charset="UTF-8">
     <title>Mazoš.cz - Registrace</title>
@@ -13,18 +13,42 @@
     </nav>
 </header>
 <main>
-<div id="registration_container">
-    <h2>Registrace</h2>
-    <form id="registration_form" action="registration_submit.html" method="post" onsubmit="return validateRegistrationForm()">
-        <label>Uživatelské jméno: <input id="username" name="username" type="text"></label>
-        <span id="usernameError" class="error"></span>
-        <label>Heslo: <input id="password" name="password" type="password"></label>
-        <span id="passwordError" class="error"></span>
-        <label>Heslo znovu: <input id="confirm-password" name="confirm-password" type="password"></label>
-        <span id="confirm-passwordError" class="error"></span>
-        <button id="submit_registration_button" name="submit_registration_button" type="submit">Registrovat se</button>
-    </form>
-</div>
+    <div id="registration_container">
+        <h2>Registrace</h2>
+        <form id="registration_form" action="registration_submit.html" method="post"
+              onsubmit="return validateRegistrationForm()">
+            <label for="username"></label>
+            <input type="text"
+                   id="username"
+                   name="username"
+                   placeholder="Uživatelské jméno">
+            <span id="usernameError" class="error"></span>
+            <label for="password"></label>
+            <input type="password"
+                   name="password"
+                   id="password"
+                   placeholder="Heslo">
+            <span id="passwordError" class="error"></span>
+            <label for="confirm-password"></label>
+            <input type="password"
+                   name="confirm-password"
+                   id="confirm-password"
+                   placeholder="Heslo znovu">
+            <span id="confirm-passwordError" class="error"></span>
+            <label for="agreement_checkbox">
+                <input type="checkbox"
+                       name="agreement"
+                       id="agreement_checkbox"
+                       value="Agreed">
+                Prečetl jsem a souhlasím s
+                <a href="/index.html">podmínkami komunity Mazoš.cz</a>
+            </label>
+
+            <button id="submit_registration_button" name="submit_registration_button" type="submit">Registrovat se
+            </button>
+        </form>
+        <p class="small-text-link">Už máte účet? <a href="login.html">Přihlaste se</a></p>
+    </div>
 </main>
 <footer>
     <p>© Copyright - Mazoš.cz | site by <b>GOFFA</b></p>
