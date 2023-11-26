@@ -1,36 +1,8 @@
-function validateRegistrationForm() {
-    var name = document.getElementById('username').value;
-    var password = document.getElementById('password').value;
-    var confirmPassword = document.getElementById('confirm-password').value;
-    var isValid = true;
+document.addEventListener('DOMContentLoaded', function (){
+    // Your existing JavaScript code here
+document.getElementById('submit_registration_button').addEventListener('click', validateForm)
 
-    // Validace jména
-    if (name === '') {
-        isValid = false;
-        document.getElementById('usernameError').innerHTML = 'Vyplňte jméno';
-    } else {
-        document.getElementById('usernameError').innerHTML = '';
-    }
 
-    // Validace hesla
-    if (password === '') {
-        isValid = false;
-        document.getElementById('passwordError').innerHTML = 'Vyplňte heslo';
-    } else {
-        document.getElementById('passwordError').innerHTML = '';
-    }
-
-    if (confirmPassword !== password){
-        isValid = false;
-        document.getElementById('confirm-passwordError').innerHTML = 'Hesla se neshodují';
-    } else {
-        document.getElementById('confirm-passwordError').innerHTML = '';
-
-    }
-
-    // Pokud je formulář neplatný, neodesílej ho
-    return isValid;
-}
 
 // Předvyplnění formuláře s předchozími hodnotami
 document.getElementById('username').value = localStorage.getItem('username') || '';
@@ -39,3 +11,54 @@ document.getElementById('username').value = localStorage.getItem('username') || 
 document.getElementById('username').addEventListener('input', function () {
     localStorage.setItem('username', document.getElementById('username').value);
 });
+
+});
+function validateForm(event){
+    let name = document.getElementById('username').value;
+    let password = document.getElementById('password').value;
+    let confirmPassword = document.getElementById('confirm-password').value;
+    let agreed = document.getElementById('agreement_checkbox').value;
+    let isValid = true;
+
+    // Validace jména
+    if (name === '') {
+        isValid = false;
+        document.getElementById('usernameError').innerHTML = 'Vyplňte jméno';
+        document.getElementById("username").classList.add("error")
+    } else {
+        document.getElementById("username").classList.remove("error")
+        document.getElementById('usernameError').innerHTML = '';
+    }
+
+    // Validace hesla
+    if (password === '') {
+        isValid = false;
+        document.getElementById('passwordError').innerHTML = 'Vyplňte heslo';
+        document.getElementById("password").classList.add("error");
+
+    } else {
+        document.getElementById('passwordError').innerHTML = '';
+        document.getElementById("password").classList.remove("error");
+
+    }
+
+    if (confirmPassword !== password){
+        isValid = false;
+        document.getElementById('confirm-passwordError').innerHTML = 'Hesla se neshodují';
+        document.getElementById("confirm-password").classList.add("error");
+    } else {
+        document.getElementById('confirm-passwordError').innerHTML = '';
+        document.getElementById("confirm-password").classList.remove("error");
+    }
+
+    if (!agreed){
+         isValid = false;
+        document.getElementById('agreement_checkbox').classList.add("error");
+    }
+
+    // Pokud je formulář neplatný, neodesílej ho
+    if(!isValid){
+        event.preventDefault();
+    }
+
+}

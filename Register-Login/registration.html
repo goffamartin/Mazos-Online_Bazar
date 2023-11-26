@@ -15,26 +15,25 @@
 <main>
     <div id="registration_container">
         <h2>Registrace</h2>
-        <form id="registration_form" action="registration_submit.html" method="post"
-              onsubmit="return validateRegistrationForm()">
+        <form id="registration_form" action="registration_submit.html" method="post">
             <label for="username"></label>
             <input type="text"
                    id="username"
                    name="username"
                    placeholder="Uživatelské jméno">
-            <span id="usernameError" class="error"></span>
+            <span id="usernameError" class="error-message"></span>
             <label for="password"></label>
             <input type="password"
                    name="password"
                    id="password"
                    placeholder="Heslo">
-            <span id="passwordError" class="error"></span>
+            <span id="passwordError" class="error-message"></span>
             <label for="confirm-password"></label>
             <input type="password"
                    name="confirm-password"
                    id="confirm-password"
                    placeholder="Heslo znovu">
-            <span id="confirm-passwordError" class="error"></span>
+            <span id="confirm-passwordError" class="error-message"></span>
             <label for="agreement_checkbox">
                 <input type="checkbox"
                        name="agreement"
