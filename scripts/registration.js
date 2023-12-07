@@ -1,19 +1,10 @@
 document.addEventListener('DOMContentLoaded', function (){
     // Your existing JavaScript code here
-document.getElementById('submit_registration_button').addEventListener('click', validateForm)
+document.getElementById('submit_registration_button').addEventListener('click', validateRegistration)
 
-
-
-// Předvyplnění formuláře s předchozími hodnotami
-document.getElementById('username').value = localStorage.getItem('username') || '';
-
-// Uložení hodnot do localStorage po změně
-document.getElementById('username').addEventListener('input', function () {
-    localStorage.setItem('username', document.getElementById('username').value);
-});
 
 });
-function validateForm(event){
+function validateRegistration(event){
     let name = document.getElementById('username').value;
     let password = document.getElementById('password').value;
     let confirmPassword = document.getElementById('confirm-password').value;
@@ -60,5 +51,4 @@ function validateForm(event){
     if(!isValid){
         event.preventDefault();
     }
-
 }
