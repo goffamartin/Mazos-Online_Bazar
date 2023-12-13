@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function (){
     // Your existing JavaScript code here
-document.getElementById('submit_registration_button').addEventListener('click', validateRegistration)
+document.getElementById('submit-registration-button').addEventListener('click', validateRegistration)
 
 
 });
@@ -8,10 +8,9 @@ function validateRegistration(event){
     let name = document.getElementById('username').value;
     let password = document.getElementById('password').value;
     let confirmPassword = document.getElementById('confirm-password').value;
-    let agreed = document.getElementById('agreement_checkbox').value;
+    let agreed = document.getElementById('agreement-checkbox');
     let isValid = true;
 
-    // Validace jména
     if (name === '') {
         isValid = false;
         document.getElementById('usernameError').innerHTML = 'Vyplňte jméno';
@@ -21,7 +20,6 @@ function validateRegistration(event){
         document.getElementById('usernameError').innerHTML = '';
     }
 
-    // Validace hesla
     if (password === '') {
         isValid = false;
         document.getElementById('passwordError').innerHTML = 'Vyplňte heslo';
@@ -42,12 +40,14 @@ function validateRegistration(event){
         document.getElementById("confirm-password").classList.remove("error");
     }
 
-    if (!agreed){
+    if (!agreed.checked){
          isValid = false;
-        document.getElementById('agreement_checkbox').classList.add("error");
+        document.getElementById('genericError').innerHTML = 'Pro registraci je nutné souhlasit s podmínkami';
+    }
+    else{
+        document.getElementById('genericError').innerHTML = '';
     }
 
-    // Pokud je formulář neplatný, neodesílej ho
     if(!isValid){
         event.preventDefault();
     }

@@ -14,13 +14,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $confirmPassword = $_POST["confirm-password"] ?? "";
 
     // Perform basic validation
-    if (empty($username) || empty($password) || empty($confirmPassword)) {
+    if (empty($username) || empty($password) || empty($confirmPassword) ||  isset($_POST["agreed"])) {
         $genericError = "Prosím vyplňte všechna pole";
     } elseif ($password !== $confirmPassword) {
         $confirmPasswordError = "Hesla se neshodují";
     } else {
         // Check if the username is already taken
-        $checkUsernameQuery = "SELECT * FROM `User` WHERE `username` = ?";
+        $checkUsernameQuery = "SELECT * FROM User WHERE username = ?";
         $stmt = $conn->prepare($checkUsernameQuery);
         $stmt->execute([$username]);
 
@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->execute([$username, $hashedPassword]);
 
             // Redirect to a success page
-            header("Location: registration_success.html");
+            header("Location: registration-success.html");
             exit(); // Ensure that no other code is executed after the redirect
         }
     }
@@ -47,8 +47,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Mazoš.cz - Registrace</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <script src="/scripts/registration.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../scripts/registration.js"></script>
 </head>
 <body>
 <header>
@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <main>
     <div class="container">
         <h2>Registrace</h2>
-        <form id="registration_form" class="form" action="registration.php" method="post">
+        <form id="registration-form" class="form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
             <span id="genericError" class="error-message"><?php echo $genericError?></span>
             <label for="username"></label>
             <input type="text"
@@ -85,16 +85,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                    placeholder="Heslo znovu"
                    value="<?php echo $confirmPassword ?? "" ?>">
             <span id="confirm-passwordError" class="error-message"><?php echo $confirmPasswordError?></span>
-            <label for="agreement_checkbox">
+            <label for="agreement-checkbox">
                 <input type="checkbox"
-                       id="agreement_checkbox"
+                       id="agreement-checkbox"
                        name="agreement"
-                       value="Agreed" required>
+                       required>
                 Prečetl jsem a souhlasím s
                 <a href="/index.php">podmínkami komunity Mazoš.cz</a>
             </label>
 
-            <button id="submit_registration_button" name="submit_registration_button" type="submit">Registrovat se
+            <button id="submit-registration-button" name="submit-registration" type="submit">Registrovat se
             </button>
         </form>
         <p class="small-text-link">Už máte účet? <a href="login.php">Přihlaste se</a></p>

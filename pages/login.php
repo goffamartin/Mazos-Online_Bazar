@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         // Verify the entered password against the stored hashed password
         if (password_verify($password, $storedPassword)) {
             // Sets Cookie to remember user
-            setcookie("UserId", $user['user_Id'], time() + 86400);
+            $_SESSION['UserId'] = $user['user_Id'];
             // Passwords match, login successful
             header("Location: ../index.php");
             exit;
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 <head>
   <meta charset="UTF-8">
   <title>Mazoš.cz - Registrace</title>
-  <link rel="stylesheet" href="/css/style.css"/>
+  <link rel="stylesheet" href="../css/style.css"/>
   <script src="../scripts/login.js"></script>
 </head>
 <body>
@@ -57,22 +57,24 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 <main>
   <div class="container">
     <h2>Přihlášení</h2>
-    <form id="login_form" class="form" action="login.php" method="post">
+    <form id="login-form" class="form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
         <span id="genericError" class="error-message"><?php echo $genericError ?? ""; ?></span>
 
         <label for="username"></label>
         <input type="text"
                id="username"
+               class="<?php echo (($genericError != "") ?  "error" : "")?>"
                name="username"
                placeholder="Uživatelské jméno" value="<?php echo $username ?? "" ?>">
 
         <label for="password"></label>
         <input type="password"
-               name="password"
                id="password"
+               class="<?php echo (($genericError != "") ?  "error" : "")?>"
+               name="password"
                placeholder="Heslo">
 
-      <button id="submit_login_button" type="submit">Přihlásit se</button>
+      <button id="submit-login-button" type="submit">Přihlásit se</button>
     </form>
   </div>
 </main>
