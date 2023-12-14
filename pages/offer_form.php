@@ -12,7 +12,7 @@ if (!isset($_SESSION['UserId'])) {
     $userId = $_SESSION['UserId'];
     $offerId = $_GET['id'] ?? null;
 
-    $getUserQuery = "SELECT * FROM user WHERE user_Id = ?";
+    $getUserQuery = "SELECT * FROM `User` WHERE user_Id = ?";
     $getUserStmt = $conn->prepare($getUserQuery);
     $getUserStmt->execute([$userId]);
     $user = $getUserStmt->fetch(PDO::FETCH_ASSOC);
@@ -24,9 +24,9 @@ $title = $description = $price = $category = $genericError = "";
 if ($offerId) {
 
     if ($user['isAdmin'] === true)
-        $getOfferQuery = "SELECT * FROM offer WHERE offer_Id = ?";
+        $getOfferQuery = "SELECT * FROM `Offer` WHERE offer_Id = ?";
     else
-        $getOfferQuery = "SELECT * FROM offer WHERE offer_Id = ? AND created_by = ?";
+        $getOfferQuery = "SELECT * FROM `Offer` WHERE offer_Id = ? AND created_by = ?";
 
     $result = $conn->prepare($getOfferQuery);
     $result->execute([$offerId, $userId]);
@@ -57,10 +57,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['action']) && $_POST['action'] === 'delete' && !empty($offerId)) {
         // Delete offer logic
         if ($user['isAdmin'] === true) {
-            $deleteStmt = $conn->prepare("DELETE FROM offer WHERE offer_Id = ?");
+            $deleteStmt = $conn->prepare("DELETE FROM `Offer` WHERE offer_Id = ?");
             $deleteStmt->execute([$offerId]);
         } else {
-            $deleteStmt = $conn->prepare("DELETE FROM offer WHERE offer_Id = ? AND created_by = ?");
+            $deleteStmt = $conn->prepare("DELETE FROM `Offer` WHERE offer_Id = ? AND created_by = ?");
             $deleteStmt->execute([$offerId, $userId]);
         }
 
@@ -70,11 +70,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['action']) && $_POST['action'] === 'save') {
         if (!empty($offerId)) {
             // Update existing offer
-            $stmt = $conn->prepare("UPDATE offer SET title=?, description=?, price=?, category=? WHERE offer_Id=? AND created_by=?");
+            $stmt = $conn->prepare("UPDATE `Offer` SET title=?, description=?, price=?, category=? WHERE offer_Id=? AND created_by=?");
             $stmt->execute([$title, $description, $price, $categoryId, $offerId, $userId]);
         } else {
             // Insert new offer
-            $stmt = $conn->prepare("INSERT INTO offer (title, description, price, created_by, category) VALUES (?, ?, ?, ?, ?)");
+            $stmt = $conn->prepare("INSERT INTO `Offer` (title, description, price, created, created_by, category) VALUES (?, ?, ?, NOW(), ?, ?)");
             $stmt->execute([$title, $description, $price, $userId, $categoryId]);
         }
         $targetDirectory = '../offer-images';
@@ -151,7 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <?php if ($offerId): ?>
                     <input type="hidden" name="offerId" value="<?php echo htmlspecialchars($offerId); ?>">
-                <?php endif; ?>
+                <?php endif;?>
 
                 <label for="title">Název:</label>
                 <input id="title" type="text" name="title" value="<?php echo $title; ?>" required>
@@ -171,7 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <label for="category">Kategorie:</label>
                 <?php
-                $getCategoriesQuery = "SELECT * FROM category";
+                $getCategoriesQuery = "SELECT * FROM `Category`";
                 $result = $conn->prepare($getCategoriesQuery);
                 $result->execute();
                 ?>
