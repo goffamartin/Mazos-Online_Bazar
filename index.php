@@ -19,7 +19,7 @@ $sort = $_GET['sort'] ?? 'created desc';
 
 // Pagination variables
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-$perPage = 10; // Number of results per page
+$perPage = 2; // Number of results per page
 $offset = ($page - 1) * $perPage;
 
 // Start the query
@@ -148,11 +148,12 @@ $totalPages = ceil($totalResults / $perPage);
 
     </div>
     <div class="container" id="results-container">
-        <h2>Výsledky<?php echo isset($_GET['my']) ? htmlspecialchars(' uživatele '.$user['username']) : ''?>:</h2>
+        <h2>Výsledky<?php echo isset($_GET['my']) ? htmlspecialchars(' uživatele '.$user['username']) : ""?>:</h2>
+        <span><?php echo $totalResults <= 0 ? "Nebyly nalezeny žádné výsledky" : ""; ?></span>
         <?php foreach ($results as $offer): ?>
             <div class="container">
                 <div class="offer-image">
-                    <img src="<?= htmlspecialchars("offer-images/" . $offer['offer_Id']) ?>" alt="Offer Image">
+                    <img src="<?= htmlspecialchars("./offer-images/" . $offer['offer_Id'].".jpg") ?>" alt="Offer Image">
                 </div>
                 <div class="offer-details">
                     <h2 class="offer-title"><?= htmlspecialchars($offer['title']) ?></h2>

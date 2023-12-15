@@ -46,27 +46,13 @@ if ($offerId) {
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-
+    if (isset($_POST['offerId']))
+        $offerId = $_POST['offerId'];
     $title = $_POST['title'];
     $description = $_POST['description'];
     $price = $_POST['price'];
     $categoryId = $_POST['category'];
 
-
-    if (isset($_POST['action']) && $_POST['action'] === 'delete' && !empty($offerId)) {
-        // Delete offer logic
-        if ($user['isAdmin'] === true) {
-            $deleteStmt = $conn->prepare("DELETE FROM `Offer` WHERE offer_Id = ?");
-            $deleteStmt->execute([$offerId]);
-        } else {
-            $deleteStmt = $conn->prepare("DELETE FROM `Offer` WHERE offer_Id = ? AND created_by = ?");
-            $deleteStmt->execute([$offerId, $userId]);
-        }
-
-        header("Location: ../index.php");
-        exit();
-    }
     if (isset($_POST['action']) && $_POST['action'] === 'save') {
         if (!empty($offerId)) {
             // Update existing offer
@@ -118,9 +104,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 die("Failed to save uploaded file.");
             }
         }
-
-
         // Redirect to a page after submission
+        header("Location: ../index.php");
+        exit();
+    }
+    if ($_POST['action'] === 'delete' && !empty($offerId)) {
+        // Delete offer logic
+        if ($user['isAdmin'] === true) {
+            $deleteStmt = $conn->prepare("DELETE FROM offer WHERE offer_Id = ?");
+            $deleteStmt->execute([$offerId]);
+        } else {
+            $deleteStmt = $conn->prepare("DELETE FROM offer WHERE offer_Id = ? AND created_by = ?");
+            $deleteStmt->execute([$offerId, $userId]);
+        }
+
+        $imagePath = '../offer-images/' . $offerId . '.jpg'; // Construct the file path. Change the extension if necessary.
+
+        if (file_exists($imagePath))
+            if (unlink($imagePath))
+
         header("Location: ../index.php");
         exit();
     }
@@ -151,7 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <?php if ($offerId): ?>
                     <input type="hidden" name="offerId" value="<?php echo htmlspecialchars($offerId); ?>">
-                <?php endif;?>
+                <?php endif; ?>
 
                 <label for="title">Název:</label>
                 <input id="title" type="text" name="title" value="<?php echo $title; ?>" required>
