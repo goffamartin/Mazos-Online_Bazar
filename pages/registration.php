@@ -1,11 +1,10 @@
 <?php
-$usernameError = "";
-$passwordError = "";
-$confirmPasswordError = "";
-$genericError = "";
+session_start();
+$genericError = $usernameError = $passwordError = $confirmPasswordError = "";
 // Include the database connection file
-global $conn;
-include_once 'db.php';
+include '../php/DB_Connector.php';
+$conn = DB_Connector::Connect();
+
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data
@@ -34,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->execute([$username, $hashedPassword]);
 
             // Redirect to a success page
-            header("Location: registration-success.html");
+            header("Location: registration_success.html");
             exit(); // Ensure that no other code is executed after the redirect
         }
     }
@@ -47,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Mazoš.cz - Registrace</title>
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../css/style.css">
     <script src="../scripts/registration.js"></script>
 </head>
@@ -57,10 +57,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </nav>
 </header>
 <main>
-    <div class="container">
+    <div class="container registration-login-container">
         <h2>Registrace</h2>
-        <form id="registration-form" class="form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-            <span id="genericError" class="error-message"><?php echo $genericError?></span>
+        <form id="registration-form" class="form" action="<?= $_SERVER["PHP_SELF"]?>" method="post">
+            <span id="genericError" class="error-message"><?= $genericError?></span>
             <label for="username"></label>
             <input type="text"
                    id="username"
@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                    name="username"
                    placeholder="Uživatelské jméno"
                    value="<?php echo $username ?? "" ?>">
-            <span id="usernameError" class="error-message"><?php echo $usernameError?></span>
+            <span id="usernameError" class="error-message"><?= $usernameError?></span>
             <label for="password"></label>
             <input type="password"
                    name="password"
@@ -76,25 +76,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                    class="<?php echo (($passwordError != "") ?  "error" : "")?>"
                    placeholder="Heslo"
                    value="<?php echo $password ?? "" ?>">
-            <span id="passwordError" class="error-message"><?php echo $passwordError?></span>
+            <span id="passwordError" class="error-message"><?= $passwordError?></span>
             <label for="confirm-password"></label>
             <input type="password"
                    id="confirm-password"
-                   class="<?php echo (($confirmPasswordError != "") ?  "error" : "")?>"
+                   class="<?= (($confirmPasswordError != "") ?  "error" : "")?>"
                    name="confirm-password"
                    placeholder="Heslo znovu"
-                   value="<?php echo $confirmPassword ?? "" ?>">
-            <span id="confirm-passwordError" class="error-message"><?php echo $confirmPasswordError?></span>
+                   value="<?= $confirmPassword ?? "" ?>">
+            <span id="confirm-passwordError" class="error-message"><?= $confirmPasswordError?></span>
             <label for="agreement-checkbox">
                 <input type="checkbox"
                        id="agreement-checkbox"
                        name="agreement"
                        required>
-                Prečetl jsem a souhlasím s
-                <a href="/index.php">podmínkami komunity Mazoš.cz</a>
+                <span>Prečetl jsem a souhlasím s <a href="/index.php">podmínkami komunity Mazoš.cz</a></span>
             </label>
 
-            <button id="submit-registration-button" name="submit-registration" type="submit">Registrovat se
+            <button class="primary-button" id="submit-registration-button" name="submit-registration" type="submit">Registrovat se
             </button>
         </form>
         <p class="small-text-link">Už máte účet? <a href="login.php">Přihlaste se</a></p>

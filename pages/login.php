@@ -1,9 +1,13 @@
 <?php
 session_start();
 // Include the database connection file
-global $conn;
+include '../php/DB_Connector.php';
+$conn = DB_Connector::Connect();
+if($conn === null){
+    $dbConnectionError = "Nepodařilo se připojit k Databázi";
+}
 
-include_once 'db.php';
+$genericError = "";
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -43,43 +47,47 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Mazoš.cz - Registrace</title>
-  <link rel="stylesheet" href="../css/style.css"/>
-  <script src="../scripts/login.js"></script>
+    <meta charset="UTF-8">
+    <title>Mazoš.cz - Přihlášení</title>
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/style.css"/>
+    <script src="../scripts/login.js"></script>
 </head>
 <body>
 <header>
-  <nav>
-    <a id="logo" href="../index.php">Mazoš.cz</a>
-  </nav>
+    <nav>
+        <a id="logo" href="../index.php">Mazoš.cz</a>
+    </nav>
 </header>
 <main>
-  <div class="container">
-    <h2>Přihlášení</h2>
-    <form id="login-form" class="form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-        <span id="genericError" class="error-message"><?php echo $genericError ?? ""; ?></span>
+    <div class="container registration-login-container">
+        <h2>Přihlášení</h2>
+        <form id="login-form" class="form" action="<?= $_SERVER["PHP_SELF"]; ?>" method="post">
+            <span class="error-message"><?= $genericError; ?></span>
 
-        <label for="username"></label>
-        <input type="text"
-               id="username"
-               class="<?php echo (($genericError != "") ?  "error" : "")?>"
-               name="username"
-               placeholder="Uživatelské jméno" value="<?php echo $username ?? "" ?>">
+            <label for="username"></label>
+            <input type="text"
+                   id="username"
+                   class="<?= (($genericError != "") ? "error" : "") ?>"
+                   name="username"
+                   placeholder="Uživatelské jméno" value="<?= $username ?? "" ?>">
+            <span id="usernameError" class="error-message"></span>
 
-        <label for="password"></label>
-        <input type="password"
-               id="password"
-               class="<?php echo (($genericError != "") ?  "error" : "")?>"
-               name="password"
-               placeholder="Heslo">
+            <label for="password"></label>
+            <input type="password"
+                   id="password"
+                   class="<?= (($genericError != "") ? "error" : "") ?>"
+                   name="password"
+                   placeholder="Heslo">
+            <span id="passwordError" class="error-message"></span>
 
-      <button id="submit-login-button" type="submit">Přihlásit se</button>
-    </form>
-  </div>
+            <button class="primary-button" id="submit-login-button" type="submit">Přihlásit se</button>
+            <p class="small-text-link">Nemáte účet? <a href="registration.php">Registrujte se</a></p>
+        </form>
+    </div>
 </main>
 <footer>
-  <p>© Copyright - Mazoš.cz | site by <b>GOFFA</b></p>
+    <p>© Copyright - Mazoš.cz | site by <b>GOFFA</b></p>
 </footer>
 </body>
 </html>
