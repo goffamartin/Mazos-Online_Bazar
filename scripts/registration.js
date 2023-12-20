@@ -54,7 +54,7 @@ function validateRegistration(event) {
 }
 
 async function checkUsernameAvailability() {
-    const response = await fetch('../php/check_username.php', {
+    const response = await fetch('../models/check_username.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',

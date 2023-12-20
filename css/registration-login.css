@@ -1,0 +1,15 @@
+.registration-login-container{
+    margin: auto;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 24%;
+    min-width: 200px;
+    max-width: 400px;
+}
+
+label[for="agreement-checkbox"]{
+    display: inline;
+    font-size: 0.8em;
+    font-weight: normal;
+}

@@ -22,7 +22,6 @@ header {
     background-color: #639882;
     display: flex;
     padding: 1rem;
-
     margin: 0 3rem;
     border-bottom-left-radius: 0.3rem;
     border-bottom-right-radius: 0.3rem;
@@ -31,6 +30,7 @@ header {
     box-shadow: 0 0 7px 2px rgba(0,0,0,0.25);
 
 }
+
 main {
     display: flex;
     flex-grow: 1; /* Allow both containers to grow */
@@ -49,6 +49,7 @@ main {
 
     box-shadow: 0 0 8px 2px rgba(0,0,0,0.3);
 }
+
 footer {
     background-color: #D8D8D8;
     margin: 0 3rem;
@@ -57,6 +58,42 @@ footer {
     border-top-right-radius: 0.3rem;
 
     box-shadow: 0 0 8px 2px rgba(0,0,0,0.3);
+}
+
+.small-text-link{
+    color: #333333;
+    font-size: 9pt;
+    align-self: center;
+}
+
+a:link, a:visited{
+    color: #36554c;
+    align-self: center;
+    text-decoration: none;
+}
+
+
+#logo:link {
+    color: #F5F5F5;
+    text-align: center;
+    font-size: 3em;
+    text-decoration: none;
+}
+#logo:visited {
+    color: #F5F5F5;
+    text-align: center;
+    font-size: 3em;
+    text-decoration: none;}
+#logo:hover {
+    color: #F5F5F5;
+    text-align: center;
+    font-size: 3em;
+    text-decoration: none;}
+#logo:active {
+    color: #F5F5F5;
+    text-align: center;
+    font-size: 3em;
+    text-decoration: none;
 }
 
 .container{
@@ -82,82 +119,6 @@ footer {
     margin: 0;
 }
 
-label[for="agreement-checkbox"]{
-    display: inline;
-    font-size: 0.8em;
-    font-weight: normal;
-}
-
-
-
-#agreement-checkbox{
-    align-self: flex-start;
-}
-label{
-    display: flex;
-    font-size: 0.7em;
-    vertical-align: middle;
-    font-weight: bold;
-}
-
-.error-message {
-    color: red;
-    font-size: 12px;
-}
-
-.small-text-link{
-    color: #333333;
-    font-size: 9pt;
-    align-self: center;
-}
-
-a:link, a:visited{
-    color: #36554c;
-    align-self: center;
-    text-decoration: none;
-}
-
-input[type=checkbox]{
-    color: #639882;
-    accent-color: #639882;
-}
-
-
-
-input[type=text], input[type=password], input[type=number], textarea, select{
-    width: 100%;
-    appearance: none;
-    border: none;
-    outline: none;
-    border-bottom: 2px solid #333333;
-    border-radius: .2rem .2rem 0 0;
-    padding: .4rem;
-}
-
-input[type=text]:focus, input[type=password]:focus, input[type=number]:focus, textarea:focus, select:focus{
-    border-color: #639882;
-}
-
-input.error{
-    border-color: rgba(255,0,21,0.82);
-}
-
-input[type='checkbox'].error{
-    border-width: 10px;
-    accent-color: rgba(255,0,21,0.82);
-}
-
-textarea{
-    resize: vertical;
-}
-
-
-
-
-
-
-
-
 button{
     color: #F5F5F5;
     padding: 4px 10px;
@@ -181,135 +142,63 @@ button.delete-button{
     background-color: #8b2328;
 }
 
-/*#submit-registration-button{*/
-/*    align-self: center;*/
-/*}*/
-
-
-
-
-.filters-container,
-.results-container {
-    flex-grow: 1; /* Allow both containers to grow */
-    flex-shrink: 1; /* Allow both containers to shrink */
-    height: auto; /* Height is set to auto for dynamic adjustment */
-}
-
-.filters-container{
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    min-width: auto;
-}
-
-.results-container{
-    width: 80%;
-    flex-direction: column;
-}
-
-.results-container-items{
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 170px);
-    gap: 10px;
-
+.error-message {
+    color: red;
+    font-size: 12px;
 }
 
 
-.registration-login-container{
-    margin: auto;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    width: 24%;
-    min-width: 200px;
-    max-width: 400px;
-}
-
-.offer-form-container{
-    margin: auto;
-}
 
 
-.offer-container {
+label{
     display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    padding: 10px;
-    height: 350px;
-}
-
-.offer-image img {
-    align-self: center;
-    width: 150px; /* Fixed width */
-    height: 150px; /* Fixed height */
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-.offer-details{
-    display: flex;
-    flex-direction: column;
-    align-self: flex-start;
-}
-
-.offer-description {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-height: 4.5em;
-    line-height: 1.5em;
-}
-
-.offer-title {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin: 0;
-    padding: 0;
-    color: #333;
-}
-
-.offer-description {
-    font-size: 14px;
-    color: #666;
-}
-
-.offer-price {
+    font-size: 0.7em;
+    vertical-align: middle;
     font-weight: bold;
-    align-self: flex-end;
-    color: #222;
+}
+
+
+input[type=text], input[type=password], input[type=number], input[type=email], textarea, select{
+    width: 100%;
+    appearance: none;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #333333;
+    border-radius: .2rem .2rem 0 0;
+    padding: .4rem;
+}
+
+input[type=text]:focus, input[type=password]:focus, input[type=number]:focus, input[type=email]:focus, textarea:focus, select:focus{
+    border-color: #639882;
+}
+
+input.error{
+    border-color: rgba(255,0,21,0.82);
+}
+
+
+input[type=checkbox]{
+    color: #639882;
+    accent-color: #639882;
 }
 
 
 
 
 
-#logo:link {
-    color: #F5F5F5;
-    text-align: center;
-    font-size: 3em;
-    text-decoration: none;
-}
-#logo:visited {
-    color: #F5F5F5;
-    text-align: center;
-    font-size: 3em;
-    text-decoration: none;}
-#logo:hover {
-    color: #F5F5F5;
-    text-align: center;
-    font-size: 3em;
-    text-decoration: none;}
-#logo:active {
-    color: #F5F5F5;
-    text-align: center;
-    font-size: 3em;
-    text-decoration: none;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

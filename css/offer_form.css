@@ -1,0 +1,15 @@
+.offer-form-container{
+    margin: auto;
+}
+
+textarea{
+    resize: vertical;
+}
+
+.offer-image img {
+    align-self: center;
+    width: 150px; /* Fixed width */
+    height: 150px; /* Fixed height */
+    object-fit: cover;
+    border-radius: 10px;
+}
