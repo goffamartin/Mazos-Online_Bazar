@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Mazoš.cz<?= ' - ' . getFormData("title", $offer) ?></title>
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/offer.css">
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" href="./css/offer.css">
     <script src="scripts/login.js"></script>
 </head>
 <body>

@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Mazoš.cz - Přihlášení</title>
-    <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
-    <link rel="stylesheet" type="text/css" href="../css/registration-login.css">
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" href="./css/registration-login.css">
     <script src="../scripts/login.js"></script>
 </head>
 <body>

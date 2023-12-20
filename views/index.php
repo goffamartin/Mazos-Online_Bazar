@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Mazoš - Tvůj online bazar</title>
-    <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
-    <link rel="stylesheet" type="text/css" href="../css/index.css">
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" href="./css/index.css">
 </head>
 <body>
 

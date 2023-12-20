@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Mazoš.cz - Formulář nabídky</title>
-    <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
-    <link rel="stylesheet" type="text/css" href="../css/offer_form.css">
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" href="./css/offer_form.css">
     <script src="../scripts/offer-form.js"></script>
 </head>
 <body>
@@ -33,7 +33,7 @@
                 <label for="image">Obrázek:</label>
                 <?php if (isset($data['offer_Id'])): ?>
                     <div class="offer-image">
-                        <img alt="Obrázek nabídky" src="<?= "../" . getFormData('image_filepath', $data) ?>">
+                        <img alt="Obrázek nabídky" src="<?= "./" . getFormData('image_filepath', $data) ?>">
                     </div>
                     <span>Nahrát nový obrázek </span>
                 <?php endif; ?>
@@ -64,7 +64,7 @@
                 <?php if (isset($data['offer_Id'])): ?>
                     <button type="submit" name="action" value="delete" class="delete-button">Smazat nabídku</button>
                 <?php endif; ?>
-                <?php if ($data['created_by'] == $user['user_Id']): ?>
+                <?php if (!isset($data['offer_Id']) || $data['created_by'] == $user['user_Id']): ?>
                     <button type="reset" class="secondary-button">Zrušit změny</button>
                     <button type="submit" name="action" value="save"
                             class="primary-button"><?= (isset($data['offer_Id'])) ? 'Aktualizovat nabídku' : 'Vytvořit nabídku' ?>
