@@ -5,7 +5,10 @@ include './models/db_helper.php';
 include './models/form_helper.php';
 
 $db = new db_helper();
-$db->Connect();
+if (($majorError = $db->Connect()) !== null){
+    include './views/error.php';
+    die();
+}
 
 $user = null;
 $offer = null;

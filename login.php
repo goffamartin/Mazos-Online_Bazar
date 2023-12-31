@@ -3,7 +3,10 @@ session_start();
 // Include the database connection file
 include 'models/db_helper.php';
 $db = new db_helper();
-$db->Connect();
+if (($majorError = $db->Connect()) !== null){
+    include './views/error.php';
+    die();
+}
 
 
 $errors = array();

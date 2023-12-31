@@ -5,7 +5,10 @@ include './models/db_helper.php';
 include './models/form_helper.php';
 
 $db = new db_helper();
-$db->Connect();
+if (($majorError = $db->Connect()) !== null){
+    include './views/error.php';
+    die();
+}
 
 // Logout logic
 if (isset($_GET['logout'])) {
@@ -53,6 +56,7 @@ $results = $db->GetFilteredOffers($perPage, $page, $title, $category, $price_fro
 if (isset($results)) {
     $totalResults = count($results);
     $totalPages = ceil($totalResults / $perPage);
+
 }
 include "./views/index.php";
 
