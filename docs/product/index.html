@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Mazoš.cz - Produktová Dokumentace</title>
+    <link rel="icon" href="../../images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+    <link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+<body>
+<header>
+    <a id="logo" href="./index.html">Mazoš.cz - Produktová dokumentace</a>
+</header>
+<main>
+    <div class="container">
+        <div class="section">
+            <h1>Portál Mazoš.cz</h1>
+            <p>Jedná se online bazar, který umožňuje uživatelům nabízet produkty, o které poté mohou jiní uživatelé projevit zájem</p>
+        </div>
+
+        <h2>Vlastnosti s ukázkou UI</h2>
+        <div class="section">
+            <h3>Nepříhlášený uživatel</h3>
+
+            <p> - Může procházet a filtrovat nabídky</p>
+            <img src="./mainpage-unlogged.png" alt="Main Page Unlogged View">
+
+            <p> - Může rozkliknout detail nabídky, ale nemůže projevit zájem</p>
+            <img src="./offer-unlogged.png" alt="Offer Unlogged View">
+
+            <p> - Může se registrovat, nebo přihlásit k existujícímu účtu</p>
+            <img src="./registerpage.png" alt="register View">
+            <img src="./loginpage.png" alt="login View">
+            <!-- Add all other images similarly -->
+        </div>
+
+        <div class="section">
+            <h3>Přihlášený uživatel</h3>
+            <p> - Main Page s navigací</p>
+            <img src="./mainpage-logged.png" alt="Main Page Logged View">
+
+            <p> - Může vytářet nabídky</p>
+            <img src="./offerform-create.png" alt="Offer Form Create View">
+
+            <p> - Může zobrazovat a filtrovat své nabídky</p>
+            <img src="./mainpage-logged-myoffers-filtered.png" alt="My Offers View">
+
+            <p> - Může zobrazovat své jednotlivé nabídky</p>
+            <img src="./offer-logged-owner-or-admin.png" alt="My Offer View">
+
+            <p> - Může upravovat/mazat svou nabídky</p>
+            <img src="./offerform-edit-owner.png" alt="Offer Form edit View">
+
+            <p> - Může projevit zájem o nabídky jiných</p>
+            <img src="./offer-logged-not-owner.png" alt="Offer show interest View">
+
+            <p> - Dokud uživatel, který nabídku vytvořil zájem nepotrvdí, je možnost zrušit zájem</p>
+            <img src="./offer-logged-interested.png" alt="Offer interested View">
+
+            <p> - Může schválit/zamítnout nákup o jeho nabídku (nabídky, o které byl projeven zájem se nezobrazují ve vyhledávání, po zamítnutí se tam vrátí)</p>
+            <img src="./offer-logged-owner-interested.png" alt="Offer accept/deny interest View">
+            <p> - V připadě, že někdo má uložený odkaz na nabídku a rozklikne si ji poté co o ni byl projeven zájem, zobrazí se jako rezervovaná</p>
+            <img src="./offer-someone-is-interested.png" alt="Offer someone else is interest View">
+        </div>
+
+        <!-- Additional Information -->
+        <div class="section">
+            <h3>Přihlášený Admin</h3>
+            <p> - Může mazat nabídky všech a tak blokovat uživatele v prodeji, přístup do formuláře je přes detail nabídky</p>
+            <img src="./offerform-edit-admin.png" alt="Offer Form admin View">
+            <p> - Počítá se s tím, že admin má přístup k databázi a tak může mazat problémové uživatele tam</p>
+        </div>
+    </div>
+</main>
+<footer>
+    <p>&copy; Copyright - Mazoš.cz | site by <b>GOFFA</b></p>
+</footer>
+</body>
+</html>

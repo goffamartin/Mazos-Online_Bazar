@@ -10,37 +10,46 @@
 <body>
 
 <header>
-    <nav>
-        <a id="logo" href="index.php">Mazoš.cz</a>
-        <div class="navButtons">
-            <?php
-            // Check if the user is logged in
-            if (isset($user)) {
-                ?>
-                <a href="index.php?my=true&show=all">Moje nabídky</a>
+    <a id="logo" href="index.php">Mazoš.cz</a>
+    <div class="myButtons">
+        <?php
+        // Check if the user is logged in
+        if (isset($user)) {
+            ?>
+
+            <div class="navButtons">
                 <a href="offer_form.php">Nová nabídka</a>
 
+                <a href="index.php?my=true&show=all">Moje nabídky</a>
+            </div>
+
+
+            <div class="navButtons">
                 <span>Přihlášen: <?= $user['username'] ?></span>
                 <a href="index.php?logout=true">Odhlásit se</a>
-                <?php
-            } // User is not logged in
-            else {
-                ?>
-                <a href="login.php">Přihlásit se</a>
-                <a href="registration.php">Registrovat se</a>
-                <?php
-            }
+            </div>
+
+            <?php
+        } // User is not logged in
+        else {
             ?>
-        </div>
-    </nav>
+            <div class="navButtons">
+                <a href="registration.php">Registrovat se</a>
+                <a href="login.php">Přihlásit se</a>
+            </div>
+            <?php
+        }
+        ?>
+    </div>
+
 </header>
 <main>
     <div class="container filters-container">
-        <h3>Filtry</h3>
-        <form class="form" method="get" action="<?= $_SERVER["PHP_SELF"] ?>">
-            <?php if($getMyOffers):?>
+        <form class="form filters-form" method="get" action="<?= $_SERVER["PHP_SELF"] ?>">
+            <h3>Filtry</h3>
+            <?php if ($getMyOffers): ?>
                 <input type="hidden" name="my" value="true">
-            <?php endif;?>
+            <?php endif; ?>
 
             <label for="title">Hledat:</label>
             <input type="text" id="title" name="title" value="<?= htmlspecialchars($title) ?>">
@@ -75,7 +84,7 @@
                     Cena - Nejdražší
                 </option>
             </select>
-            <?php if($getMyOffers || (isset($user) && $user['isAdmin'])):?>
+            <?php if ($getMyOffers || (isset($user) && $user['isAdmin'])): ?>
                 <label for="show">Zobrazit nabídky:</label>
                 <select id="show" name="show">
                     <option value="all" <?= $show == 'all' ? 'selected' : '' ?>>
@@ -91,11 +100,11 @@
                         Prodané
                     </option>
                 </select>
-            <?php endif;?>
+            <?php endif; ?>
 
             <button class="primary-button" type="submit" name="submit" value="search">Vyhledat</button>
             <a href="<?php if ($getMyOffers) {
-                echo $_SERVER["PHP_SELF"].'?my=true';
+                echo $_SERVER["PHP_SELF"] . '?my=true';
             } else {
                 echo $_SERVER["PHP_SELF"];
             } ?>">Vymazat filtry</a>
@@ -103,41 +112,50 @@
 
     </div>
     <div class="container results-container">
-        <h2>Výsledky<?= $getMyOffers && isset($user) ? ' uživatele ' . htmlspecialchars($user['username']) : "" ?>:</h2>
+        <h3>Výsledky<?= $getMyOffers && isset($user) ? ' uživatele ' . htmlspecialchars($user['username']) : "" ?>:</h3>
         <span><?= !isset($totalResults) ? "Nebyly nalezeny žádné výsledky" : "" ?></span>
-        <div class="results-container-items">
+        <div>
             <?php if (isset($results))
                 foreach ($results as $offer):?>
                     <a href="<?= "./offer.php?id=" . $offer['offer_Id'] ?>">
-                        <div class="offer-item-container">
-                            <div class="offer-image">
+                        <div class="product-listing">
+                            <div class="product-image">
                                 <img src="<?= './' . $offer['image_filepath'] ?>"
                                      alt="<?= getFormData('title', $offer) ?>">
                             </div>
-                            <div class="offer-details">
-                                <h3 class="offer-title"><?= getFormData('title', $offer) ?></h3>
-                                <p class="offer-description"><?= getFormData('description', $offer) ?></p>
-                                <div class="offer-price"><?= getFormData('price', $offer) ?> Kč</div>
+                            <div class="product-details">
+                                <h2 class="product-title"><?= getFormData('title', $offer) ?></h2>
+                                <p class="product-description"><?= getFormData('description', $offer) ?></p>
+                                <div class="product-details-footer">
+                                    <p class="product-created">Vytvořeno: <?= getFormData('created', $offer) ?></p>
+                                    <h3 class="product-price"><?= getFormData('price', $offer) ?> Kč</h3>
+                                </div>
+
                             </div>
                         </div>
                     </a>
                 <?php endforeach; ?>
-
         </div>
-        <?php if (isset($results)) {
-            for ($i = 1; $i <= $totalPages; $i++) {
-                $link = "index.php?page=".$i."&title=".urlencode($title)."&category=".$category."&price_from=".$price_from."&price_to=".$price_to."&sort=".urlencode($sort);
-                if ($getMyOffers)
-                    echo "<a href='$link&my=true'>$i</a>";
-                else
-                    echo "<a href='$link'>$i</a>";
+
+        <div class="results-pagination">
+            <?php if (isset($results)) {
+                for ($i = $page > 3 ? $page - 3 : 1; $i <= $page + 3 && $i <= $totalPages; $i++) {
+                    $link = "index.php?page=" . $i . "&title=" . urlencode($title) . "&category=" . $category . "&price_from=" . $price_from . "&price_to=" . $price_to . "&sort=" . urlencode($sort);
+                    if ($getMyOffers):?>
+                        <a href="<?= $link . "&my=true" ?>"
+                           class=<?= $page === $i ? "results-pagination-current" : "" ?>><?= $i ?></a>
+                    <?php else: ?>
+                        <a href="<?= $link ?>"
+                           class="<?= $page === $i ? "results-pagination-current" : "" ?>"><?= $i ?></a>
+                    <?php endif;
+                }
             }
-        }
-        ?>
+            ?>
+        </div>
     </div>
 </main>
 <footer>
-    <p>© Copyright - Mazoš.cz | site by <b>GOFFA</b></p>
+    <p>&copy; Copyright - Mazoš.cz | site by <b>GOFFA</b></p>
 </footer>
 </body>
 </html>

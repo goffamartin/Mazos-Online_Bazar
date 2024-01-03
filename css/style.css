@@ -21,14 +21,45 @@ body {
 header {
     background-color: #639882;
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     padding: 1rem;
     margin: 0 3rem;
     border-bottom-left-radius: 0.3rem;
     border-bottom-right-radius: 0.3rem;
 
-    min-width: inherit;
+    min-width: fit-content;
     box-shadow: 0 0 7px 2px rgba(0,0,0,0.25);
 
+    position: sticky;
+    top: 0;
+}
+
+.navButtons{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-right: 20px;
+}
+.myButtons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+header a:link,
+header a:visited,
+header a:hover,
+header a:active{
+    background-color: #F5F5F5;
+    color: #202020;
+    padding: 4px 10px;
+    border-style: hidden;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 11pt;
+    box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.2);
 }
 
 main {
@@ -38,9 +69,9 @@ main {
     flex-direction: row;
     justify-content: space-between;
     gap: 10px;
-    width: auto;
-    height: auto;
-    min-width: fit-content;
+    /*width: auto;*/
+    /*height: auto;*/
+    min-width: 754px;
     background-color: #404040;
     margin: 1rem 3rem;
     padding: 2rem;
@@ -73,28 +104,19 @@ a:link, a:visited{
 }
 
 
-#logo:link {
-    color: #F5F5F5;
-    text-align: center;
-    font-size: 3em;
-    text-decoration: none;
-}
-#logo:visited {
-    color: #F5F5F5;
-    text-align: center;
-    font-size: 3em;
-    text-decoration: none;}
-#logo:hover {
-    color: #F5F5F5;
-    text-align: center;
-    font-size: 3em;
-    text-decoration: none;}
+#logo:link,
+#logo:visited,
+#logo:hover,
 #logo:active {
+    box-shadow: none;
+    background-color: #639882;
+    width: auto;
     color: #F5F5F5;
     text-align: center;
     font-size: 3em;
     text-decoration: none;
 }
+
 
 .container{
     display: flex;
@@ -168,6 +190,7 @@ label{
 
 input[type=text], input[type=password], input[type=number], input[type=email], textarea, select{
     width: 100%;
+    box-sizing: border-box;
     appearance: none;
     border: none;
     outline: none;
@@ -180,7 +203,7 @@ input[type=text]:focus, input[type=password]:focus, input[type=number]:focus, in
     border-color: #639882;
 }
 
-input.error{
+input.error, textarea.error{
     border-color: rgba(255,0,21,0.82);
 }
 
@@ -188,6 +211,26 @@ input.error{
 input[type=checkbox]{
     color: #639882;
     accent-color: #639882;
+}
+
+@media print {
+    /* Hide non-essential elements */
+    header, nav, footer, button{
+        display: none;
+    }
+
+    /* Simplify layout for printing */
+    .container, main {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+    }
+
+    /* Remove background colors */
+    body{
+        background: #fff;
+    }
 }
 
 

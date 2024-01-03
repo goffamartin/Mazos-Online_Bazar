@@ -54,7 +54,7 @@ if ($getMyOffers && !isset($user)) {
 $results = $db->GetFilteredOffers($perPage, $page, $title, $category, $price_from, $price_to, $sort, $getMyOffers, $user ?? null, $all ?? false, $new ?? true, $interestShown ?? false, $sold ?? false);
 
 if (isset($results)) {
-    $totalResults = count($results);
+    $totalResults = $db->GetFilteredOffersCount($title, $category, $price_from, $price_to, $sort, $getMyOffers, $user ?? null, $all ?? false, $new ?? true, $interestShown ?? false, $sold ?? false);
     $totalPages = ceil($totalResults / $perPage);
 
 }

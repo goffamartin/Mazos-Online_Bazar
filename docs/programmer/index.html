@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Mazoš.cz - Produktová Dokumentace</title>
+    <link rel="icon" href="../../images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+    <link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+<body>
+<header>
+    <a id="logo" href="./index.html">Mazoš.cz - Programátorská dokumentace</a>
+</header>
+<main>
+    <div class="container">
+        <h2>Zdrojový kód</h2>
+        <p>Portál Mazoš.cz byl vytvořen pomoc LAMP stacku – Linux, Apache, MySQL, PHP. <br> Snaží se dodržovat model MVC
+            (model-view-controller)</p>
+
+        <h2>Strom struktury souborů</h2>
+
+        <ul>
+            <li>www
+                <ul>
+                    <li>css
+                        <ul>
+                            <li>css stylesheets</li>
+                        </ul>
+                    </li>
+                    <li>docs
+                        <ul>
+                            <li>phpDocumentator</li>
+                            <li>product</li>
+                            <li>programmer</li>
+                        </ul>
+                    </li>
+                    <li>images
+                        <ul>
+                            <li>icon</li>
+                        </ul>
+                    </li>
+                    <li>offer-images
+                    </li>
+                    <li>models
+                        <ul>
+                            <li>php source files</li>
+                        </ul>
+                    </li>
+                    <li>scripts
+                        <ul>
+                            <li>javascript files</li>
+                        </ul>
+                    </li>
+                    <li>views
+                        <ul>
+                            <li>viewable pages</li>
+                        </ul>
+                    </li>
+                    <li>"Controllers"</li>
+                </ul>
+
+            </li>
+        </ul>
+
+        <h2>Popis konetentu složek</h2>
+        <ul>
+            <li>
+                www - root složka webové aplikace, obsahuje v sobě všechny kontrolery pro snadný přistup
+            </li>
+            <li>
+                css - obsahuje styly pro všechny pages ve views
+            </li>
+            <li>
+                docs - obsahuje jednotlive dokumentace
+            </li>
+            <li>
+                images - obsahuje obrázky a ikony použité ve views
+            </li>
+            <li>
+                offer-images - obsahuje obrázky nahrané k nabídkám
+            </li>
+            <li>
+                models - obsahuje php helpery pro komunikaci s databází, práci s obrázky a pomocné skripty
+            </li>
+            <li>
+                scripts - obsahuje javascriptové soubory, které se starají o validaci na klientské straně
+            </li>
+            <li>
+                views - Obsahuje zobrazitelné stránky s PHP logikou pro zajištění správného dynamického načítání stránek
+            </li>
+        </ul>
+    </div>
+    <div class="container">
+        <h2>MySQL Databáze</h2>
+
+        <h3>Diagram</h3>
+        <img src="./db_schema.png" alt="db schema">
+
+        <h3>Create Skript</h3>
+        <div class="container">
+            <pre><code class="language-sql">
+create table category
+(
+    category_id   int          not null
+        primary key,
+    category_name varchar(255) not null
+);
+
+create table user
+(
+    user_Id  int auto_increment
+        primary key,
+    username varchar(255)         not null,
+    password varchar(255)         not null,
+    isAdmin  tinyint(1) default 0 not null,
+    constraint username
+        unique (username)
+);
+
+create table offer
+(
+    offer_Id       int auto_increment
+        primary key,
+    title          varchar(255)                       not null,
+    description    varchar(255)                       null,
+    price          int                                not null,
+    created        datetime default CURRENT_TIMESTAMP null,
+    created_by     int                                not null,
+    sold           datetime                           null,
+    sold_to        int                                null,
+    category       int                                null,
+    image_filepath varchar(255)                       not null,
+    constraint Offer_Category_category_id_fk
+        foreign key (category) references category (category_id),
+    constraint Offer_User_user_Id_fk
+        foreign key (created_by) references user (user_Id),
+    constraint Offer_User_user_Id_fk2
+        foreign key (sold_to) references user (user_Id)
+);
+            </code></pre>
+        </div>
+    </div>
+</main>
+<footer>
+    <p>&copy; Copyright - Mazoš.cz | site by <b>GOFFA</b></p>
+</footer>
+</body>
+</html>

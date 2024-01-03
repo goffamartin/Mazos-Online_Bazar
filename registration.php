@@ -14,9 +14,9 @@ $data = array();
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data
-    $data['username'] = $_POST["username"] ?? "";
-    $data['password'] = $_POST["password"] ?? "";
-    $data['confirmPassword'] = $_POST["confirm-password"] ?? "";
+    $data['username'] = trim($_POST["username"]) ?? "";
+    $data['password'] = trim($_POST["password"]) ?? "";
+    $data['confirmPassword'] = trim($_POST["confirm-password"]) ?? "";
 
     // Perform basic validation
     if (empty($data['username']) || empty($data['password']) || empty($data['confirmPassword']) || isset($_POST["agreed"])) {
@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif ($data['password'] !== $data['confirmPassword']) {
         $errors['confirmPassword'] = "Hesla se neshodují";
     } else {
-        $result = $db->InsertUser($_POST["username"], $_POST["password"]);
+        $result = $db->InsertUser($data["username"], $data["password"]);
         if ($result === true) {
             // Redirect to a success page
             header("Location: ./views/registration_success.html");

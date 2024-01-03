@@ -13,3 +13,14 @@ textarea{
     object-fit: cover;
     border-radius: 10px;
 }
+
+@media print {
+
+    input[type=file]{
+        display: none;
+    }
+
+    textarea{
+        height: 600px;
+    }
+}

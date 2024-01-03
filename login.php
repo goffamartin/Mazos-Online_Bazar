@@ -14,8 +14,8 @@ $errors = array();
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     // Retrieve form data
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = trim($_POST['username']);
+    $password = trim($_POST['password']);
 
     // Query the database for the user
     $user = $db->GetUserByUsername($username);
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         // Verify the entered password against the stored hashed password
         if (password_verify($password, $storedPassword)) {
-            // Sets Cookie to remember user
+            // Sets Session Cookie to remember user
             $_SESSION['UserId'] = $user['user_Id'];
             // Passwords match, login successful
             header("Location: index.php");

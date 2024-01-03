@@ -1,0 +1,16 @@
+body {
+    font-family: Arial, sans-serif;
+}
+.container {
+    width: 80%;
+    margin: auto;
+}
+img {
+    max-width: 70%;
+    height: auto;
+    display: block;
+    margin-bottom: 20px;
+}
+.section {
+    margin-bottom: 50px;
+}

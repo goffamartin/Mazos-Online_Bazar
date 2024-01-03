@@ -2,8 +2,8 @@ document.addEventListener('DOMContentLoaded', function (){
     document.getElementById('submit-login-button').addEventListener('click', validateLogin)
 });
 function validateLogin(event){
-    let name = document.getElementById('username').value;
-    let password = document.getElementById('password').value;
+    let name = document.getElementById('username').value.trim();
+    let password = document.getElementById('password').value.trim();
     let isValid = true;
 
     if (name === '') {

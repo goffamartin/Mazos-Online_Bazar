@@ -6,7 +6,7 @@ include './models/form_helper.php';
 include './models/image_helper.php';
 
 $db = new db_helper();
-if (($majorError = $db->Connect()) !== null){
+if (($majorError = $db->Connect()) !== null) {
     include './views/error.php';
     die();
 }
@@ -26,15 +26,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
     if ($_POST['action'] === 'save') {
 
-        $canSaveToDB = true;
+        if (!isset($_POST['title']) || trim($_POST['title']) == "")
+            $errors['title'] = "Vyplňte název nabídky";
+        else if (strlen($_POST['title']) > 100) {
+            $errors['title'] = "Název je moc dlouhý max. 100 znaků";
+        }
+        if (isset($_POST['description'])){
+            $maxLines = 50;
+            $description = $_POST['description'];
+            $lines = explode("\n", $description);
+
+            if (count($lines) > $maxLines) {
+                $errors['description'] = "popis je moc dlouhý max. 50 řádků";
+            }
+        }
+
+        if (!isset($_POST['price']))
+            $errors['price'] = "Vyplňte cenu";
+        else
+            if ($_POST['price'] > 2147483647 || $_POST['price'] < 0)
+                $errors['price'] = "cena min. 0 kč max. 2147483647 kč)";
+
+        if (!isset($_POST['offerId']) && $_FILES['image']['error'] == UPLOAD_ERR_NO_FILE)
+            $error['image'] = "Nahrajte obrázek";
 
         if (!isset($_POST['offerId']) || $_FILES['image']['error'] !== UPLOAD_ERR_NO_FILE) {
             $image = $_FILES['image'];
-            $imageFilePath = str_replace(" ","_","offer-images/" . basename($image["name"]));
+            $imageFilePath = str_replace(" ", "_", "offer-images/" . basename($image["name"]));
             $canSaveToDB = uploadImage($image, $errors);
         }
 
-        if ($canSaveToDB === true) {
+        if (empty($errors)) {
             $success = $db->InsertOrUpdateOffer($_POST['title'], $_POST['description'], $_POST['price'], $_POST['category'], $user['user_Id'], $imageFilePath ?? null, $_POST['offerId'] ?? null);
             // Redirect to a page after submission
             if ($success) {
@@ -42,14 +64,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 exit();
             }
         } else {
-            $data = array(
-                'title' => $_POST['title'],
-                'description' => $_POST['description'],
-                'price' => $_POST['price'],
-                'category' => $_POST['category']
-            );
-
-            $errors['generic'] = "Chyba při ukládání";
+            if(!isset($_POST['offerId']))
+            {
+                $data = array(
+                    'title' => $_POST['title'],
+                    'description' => $_POST['description'],
+                    'price' => $_POST['price'],
+                    'category' => $_POST['category']
+                );
+            }
+            else{
+                $data = array(
+                    'offer_Id' => $_POST['offerId'],
+                    'created_by' => $_POST['createdBy'],
+                    'image_filepath' => $_POST['image_filepath'],
+                    'title' => $_POST['title'],
+                    'description' => $_POST['description'],
+                    'price' => $_POST['price'],
+                    'category' => $_POST['category']
+                );
+            }
         }
     }
     if ($_POST['action'] === 'delete' && isset($_POST['offerId'])) {
@@ -62,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 } // Form is loaded for the first time
 else {
     if (isset($_GET['id'])) {
-        if(($data = $db->GetOfferToEdit($_GET['id'], $user['user_Id'])) == null){
+        if (($data = $db->GetOfferToEdit($_GET['id'], $user['user_Id'])) == null) {
             $errors['authorization'] = "Nabídka (už) neexistuje nebo nemáte práva na uprávu";
         }
         // Offer data was successfully loaded

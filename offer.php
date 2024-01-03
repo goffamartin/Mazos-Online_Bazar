@@ -10,6 +10,8 @@ if (($majorError = $db->Connect()) !== null){
     die();
 }
 
+$errors = array();
+
 $user = null;
 $offer = null;
 $interestedUser = null;
@@ -40,16 +42,42 @@ if (isset($_GET['id'])) {
             $interestedUser = $db->GetUser($offer['sold_to']);
         }
     }
+} else{
+    $majorError = "Není určena nabídka pro zobrazení";
+    include './views/error.php';
+    die();
 }
 
 // Handle form submission for showing interest
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['show_interest']) && !$offer['sold_to']) {
     $interestedUser = $_POST['interestedUser'];
-    $phone = $_POST['phone'] ?? null;
-    $email = $_POST['email'] ?? null;
+    $phone = trim($_POST['phone']) ?? null;
+    $email = trim($_POST['email']) ?? null;
 
-    $db->UpdateOffer_Sold_To($offer['offer_Id'], (int)$interestedUser, $email, $phone);
-    header("Location: " . $_SERVER['PHP_SELF'] . "?id=" . $offer['offer_Id']);
+    $somethingSet = false;
+
+    if (isset($phone) && $phone != ""){
+        $phone = str_replace(' ', '', $phone);
+        if (!preg_match('/^(\\+\\d{3})?\\d{9}$/', $phone))
+            $errors['phone'] = "Tel. číslo musí mít 9 číslic";
+        else
+            $somethingSet = true;
+    }
+    if (isset($email) && $email != ""){
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+            $errors['email'] = "Nesplňuje email formát";
+        else
+            $somethingSet = true;
+    }
+
+    if (empty($errors) && $somethingSet) {
+        $db->UpdateOffer_Sold_To($offer['offer_Id'], (int)$interestedUser, $email, $phone);
+        header("Location: " . $_SERVER['PHP_SELF'] . "?id=" . $offer['offer_Id']);
+    }
+    else{
+        $errors['interest'] = "musí být vyplněn alespoň jeden kontakt";
+    }
+
 }
 
 // Handle form submission for cancelling interest or cancelling from the owner side

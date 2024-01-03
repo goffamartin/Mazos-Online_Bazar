@@ -47,7 +47,7 @@
                        id="agreement-checkbox"
                        name="agreement"
                        required>
-                <span>Prečetl jsem a souhlasím s <a href="index.php"<!--placeholder-->>podmínkami komunity Mazoš.cz</a></span>
+                <span>Prečetl jsem a souhlasím s <a href="index.php"><!--placeholder-->podmínkami komunity Mazoš.cz</a></span>
             </label>
 
             <button class="primary-button" id="submit-registration-button" name="submit-registration" type="submit">

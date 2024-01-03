@@ -5,9 +5,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 function validateRegistration(event) {
-    let username = document.getElementById('username').value;
-    let password = document.getElementById('password').value;
-    let confirmPassword = document.getElementById('confirm-password').value;
+    let username = document.getElementById('username').value.trim();
+    let password = document.getElementById('password').value.trim();
+    let confirmPassword = document.getElementById('confirm-password').value.trim();
     let agreed = document.getElementById('agreement-checkbox');
 
     let isValid = true;
